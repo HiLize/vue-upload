@@ -5,11 +5,11 @@
         <Upload
             :before-upload="handleUpload"
             action="//jsonplaceholder.typicode.com/posts/">
-            <Button icon="ios-cloud-upload-outline" class='ivu-btn'>Select the file to upload</Button>
+            <Button icon="ios-cloud-upload-outline" size='default'>Select the file to upload</Button>
         </Upload>
         <div v-if="file !== null">Upload file: {{ file.name }} <Button type="text" @click="upload" :loading="loadingStatus">{{ loadingStatus ? 'Uploading' : 'Click to upload' }}</Button></div>
     </div>
-    <Icon type="ios-checkmark" style="fontSize: 42px;"/>
+    <Icon type="ios-checkmark" size="42"/>
     <Upload
         multiple
         type="drag"
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import {Upload, Icon} from 'iview'
+import {Upload, Icon, Button} from 'iview'
 export default {
   name: "HelloWorld",
-  components: {Upload, Icon},
+  components: {Upload, Icon, Button},
   props: {
     msg: String
   },
