@@ -1,43 +1,73 @@
 <template>
-    <div>
-        <iTable size="default" :data="tableData1" :columns="tableColumns1" stripe></iTable>
+    <div class="tableContent">
+        <iTable border size="small" :data="tableData1" :columns="tableColumns1"></iTable>
         <div style="margin: 10px;overflow: hidden">
             <div style="float: right;">
-                <iPage :transfer="false" :total="100" :current="1" @on-change="changePage"></iPage>
+                <iPage size="small"
+                    transfer
+                    :total="100"
+                    :current="1"
+                    @on-change="changePage"
+                    show-elevator
+                    show-sizer
+                    show-total
+                    class="pageStyle"
+                ></iPage>
             </div>
         </div>
     </div>
 </template>
 <script>
-import { Table, Page, Poptip, Tag } from "iview";
+import { Table, Page, Button } from "iview";
 export default {
     name: "upload",
     components: {
         iTable: Table,
         iPage: Page,
-        Poptip,
-        Tag
+        Button
     },
     data () {
         return {
             tableData1: this.mockTableData1(),
             tableColumns1: [
                 {
-                    title: 'Name',
-                    key: 'name'
+                    title: '群名称',
+                    key: 'groupChatName'
                 },
                 {
-                    title: 'Sampling Time',
-                    key: 'time',
+                    title: '群ID',
+                    key: 'groupChatGrouID',
                     render: (h, params) => {
                         return h('div', 'Almost' + params.row.time + 'days');
                     }
                 },
                 {
-                    title: 'Updated Time',
-                    key: 'update',
+                    title: '群介绍',
+                    key: 'describe'
+                },
+                {
+                    title: '学校',
+                    key: 'school'
+                },
+                {
+                    title: '人数',
+                    key: 'count'
+                },
+                {
+                    title: '创建时间',
+                    key: 'creatTime',
                     render: (h, params) => {
-                        return h('div', this.formatDate(this.tableData1[params.index].update));
+                        // 可用render方法统一修改显示内容格式
+                        return h('div', this.formatDate(this.tableData1[params.index].creatTime));
+                    }
+                },
+                {
+                    title: '操作',
+                    key: 'operation',
+                    width: 300,
+                    align: 'left',
+                    render: (h, params) => {
+                        return h('div', this.creatButton(h, ['查看详情', '解散', '添加成员', '群公告'], params));
                     }
                 }
             ]
@@ -48,12 +78,43 @@ export default {
             let data = [];
             for (let i = 0; i < 10; i++) {
                 data.push({
-                    name: 'Business' + Math.floor(Math.random () * 100 + 1),
-                    time: Math.floor(Math.random () * 7 + 1),
-                    update: new Date()
+                    groupChatName: `群聊${i}`,
+                    groupChatGrouID: '群ID' + Math.floor(Math.random () * 100 + 1),
+                    describe: '群描述'+i,
+                    school: '学校'+Math.floor(Math.random () * 100 + 1),
+                    count: Math.floor(Math.random () * 100 + 1),
+                    creatTime: new Date()
                 })
             }
             return data;
+        },
+        creatButton(h, array, params) {
+            var btn = []
+            for (let i = 0; i < array.length; i++) {
+                let button = h(
+                    'span',
+                    {
+                        props: {
+                            type: 'text',
+                            size: 'small',
+                            ghost: true
+                        },
+                        style: {
+                            color: '#2d8cf0',
+                            marginRight: '5px',
+                            cursor: 'pointer'
+                        },
+                        on: {
+                            click: () => {
+                                console.log(array[i], params.index)
+                            }
+                        }
+                    },
+                    array[i]
+                )
+                btn.push(button)
+            }
+            return btn
         },
         formatDate (date) {
             const y = date.getFullYear();
@@ -70,3 +131,14 @@ export default {
     }
 }
 </script>
+
+<style>
+.tableContent {
+    width: 100%;
+    margin: auto;
+}
+.pageStyle {
+    font-size: 0.75rem;
+}
+</style>
+

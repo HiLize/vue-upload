@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: "/",
+  baseUrl: "./",
   configureWebpack: {
     resolve: {
       alias: {
@@ -14,7 +14,7 @@ module.exports = {
       "/posts": {
         target: "http://jsonplaceholder.typicode.com",
         ws: true,
-        changeOrigin: true
+        changeOrigin: true //允许跨域
       }
     } // 配置多个代理
   }
