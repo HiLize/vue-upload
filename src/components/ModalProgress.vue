@@ -2,11 +2,12 @@
   <Modal
       v-model="isShow"
       width="500"
-      draggable
       scrollable
       :transfer="true"
       :closable="false"
-      :footer-hide="true">
+      :footer-hide="true"
+      class-name="vertical-center-modal"
+    >
       <div style="min-height: 18rem;">
       <div class="modalContent">
         <iProgress :percent="percent" :status="status" hide-info class="tipsText"/>
@@ -54,5 +55,13 @@ export default {
   display: block;
   width: 80%;
   text-align: center;
+}
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ivu-modal{
+  top: 0;
 }
 </style>

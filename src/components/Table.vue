@@ -1,6 +1,13 @@
 <template>
     <div class="tableContent">
-        <iTable border size="small" :data="tableData1" :columns="tableColumns1"></iTable>
+        <iTable
+            border
+            ref="selection"
+            size="small"
+            :data="tableData1"
+            :columns="tableColumns1"
+            @on-selection-change="handleSelect"
+        />
         <div style="margin: 10px;overflow: hidden">
             <div style="float: right;">
                 <iPage size="small"
@@ -31,14 +38,19 @@ export default {
             tableData1: this.mockTableData1(),
             tableColumns1: [
                 {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
+                },
+                {
                     title: '群名称',
                     key: 'groupChatName'
                 },
                 {
                     title: '群ID',
-                    key: 'groupChatGrouID',
+                    key: 'groupChatID',
                     render: (h, params) => {
-                        return h('div', 'Almost' + params.row.time + 'days');
+                        return h('div', params.row.groupChatID);
                     }
                 },
                 {
@@ -79,7 +91,7 @@ export default {
             for (let i = 0; i < 10; i++) {
                 data.push({
                     groupChatName: `群聊${i}`,
-                    groupChatGrouID: '群ID' + Math.floor(Math.random () * 100 + 1),
+                    groupChatID: '群ID' + Math.floor(Math.random () * 100 + 1),
                     describe: '群描述'+i,
                     school: '学校'+Math.floor(Math.random () * 100 + 1),
                     count: Math.floor(Math.random () * 100 + 1),
@@ -125,8 +137,13 @@ export default {
             return y + '-' + m + '-' + d;
         },
         changePage () {
-            // The simulated data is changed directly here, and the actual usage scenario should fetch the data from the server
+            // 翻页调用抓取新一页数据
+            console.log('changePage')
             this.tableData1 = this.mockTableData1();
+        },
+        handleSelect(selectionArray) {
+            // 每次修改都把该数据返回到父组件中 
+            console.log(selectionArray, 'select', this.tableData1)
         }
     }
 }

@@ -15,6 +15,11 @@ module.exports = {
         target: "http://jsonplaceholder.typicode.com",
         ws: true,
         changeOrigin: true //允许跨域
+      },
+      "/v3": {
+        target: "http://172.20.5.47",
+        ws: true,
+        changeOrigin: true //允许跨域
       }
     } // 配置多个代理
   }

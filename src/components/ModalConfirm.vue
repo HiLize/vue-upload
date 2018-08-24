@@ -2,11 +2,12 @@
   <Modal
       v-model="isShow"
       width="400"
-      draggable
       scrollable
       :transfer="true"
       :closable="false"
-      :footer-hide="true">
+      :footer-hide="true"
+      class-name="vertical-center-modal"
+    >
       <div class="modalContent">
         <slot></slot>
         <div class="btnContent">
@@ -37,23 +38,31 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.modalContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  min-height: 10rem;
-  line-height: 4rem;
-  font-size: 1rem;
-}
-.btnContent {
-  text-align: right;
-}
-.tipsText {
-  display: block;
-  width: 80%;
-  text-align: center;
-}
+<style lang="less" scoped>
+  .vertical-center-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ivu-modal{
+      top: 0;
+    }
+    .modalContent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      min-height: 10rem;
+      line-height: 4rem;
+      font-size: 1rem;
+    }
+    .btnContent {
+      text-align: right;
+    }
+    .tipsText {
+      display: block;
+      width: 80%;
+      text-align: center;
+    }
+  }
 </style>

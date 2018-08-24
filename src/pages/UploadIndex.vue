@@ -2,12 +2,11 @@
   <div id="app">
     <div class="marginStyle">
       <div class="title">请根据以下模板整理数据后导入</div>
-      <p class="successTitle"><span v-show="fileName">上传文件：{{fileName}}</span></p>
       <Button icon="ios-cloud-download" size='large' style="margin: 1rem 1rem 1rem 0;" @click="inportexcel">下载模板</Button>
 <!-- action="//jsonplaceholder.typicode.com/posts/" -->
       <Upload
         ref="upload"
-        action="/posts/"
+        action="/v3/cpdaily-im/admin/tribe/import"
         :data="objectData"
         :with-credentials="true"
         :before-upload="beforeUpload"
@@ -18,6 +17,7 @@
       >
         <Button icon="ios-cloud-upload" size='large'>上传EXCEL</Button>
       </Upload>
+      <p class="successTitle"><span v-show="fileName">上传文件：{{fileName}}</span></p>
     </div>
 
     <div class="marginStyle">
@@ -39,8 +39,9 @@
     >
       是否确认创建该群聊
     </ModalConfirm>
-    <Divider  orientation="left">测试组件</Divider>
-    <SearchInput placeholder="请输入学工号/姓名/手机号"/>
+
+    <!-- <Divider  orientation="left">测试组件</Divider>
+    <SearchInput placeholder="请输入学工号/姓名/手机号"/> -->
     <iTable />
   </div>
 </template>
@@ -89,6 +90,7 @@ export default {
     beforeUpload(file) {
       this.file = file
       this.fileName = file.name
+      this.progressStatus = "active";
       return false;
     },
     onProgress(event, fill, fillList) {
@@ -143,7 +145,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 2rem;
+  padding: 2rem;
+  height: 100%;
 }
 .title {
   font-weight: 500;
@@ -151,7 +154,7 @@ export default {
   font-size: 1rem;
 }
 .successTitle {
-  height: 0.75rem;
+  height: 1rem;
   font-size: 0.75rem;
   color: #2c3e50;
 }
